@@ -37,6 +37,22 @@ class OutputRakeTest < Test::Unit::TestCase
     end
   end
   
+  context "A rake command that overrides the path to rake" do
+    setup do
+      @output = Whenever.cron \
+      <<-file
+        set :path, '/my/path'
+        every 2.hours do
+          rake "blahblah", :rake => 'bundle exec rake'
+        end
+      file
+    end
+    
+    should "output the rake command using that path" do
+      assert_match two_hours + ' cd /my/path && RAILS_ENV=production bundle exec rake blahblah', @output
+    end    
+  end
+  
   context "A rake command with environment set" do
     setup do
       @output = Whenever.cron \

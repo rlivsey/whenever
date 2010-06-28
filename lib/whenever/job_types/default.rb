@@ -10,6 +10,7 @@ module Whenever
         @output_redirection = options.has_key?(:output) ? options[:output] : :not_set
         @environment        = options[:environment] || :production
         @path               = options[:path] || Whenever.path
+        @rake               = options[:rake] || "/usr/bin/env rake"
       end
     
       def output
