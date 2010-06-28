@@ -22,7 +22,7 @@ module Whenever
     
     def set(variable, value)
       return if instance_variable_defined?("@#{variable}".to_sym)
-      
+
       instance_variable_set("@#{variable}".to_sym, value)
       self.class.send(:attr_reader, variable.to_sym)
     end
@@ -54,7 +54,7 @@ module Whenever
     end
     
     def rake(task, options = {})
-      options.reverse_merge!(:environment => @environment, :path => @path)
+      options.reverse_merge!(:environment => @environment, :path => @path, :rake_path => @rake_path)
       options[:class] = Whenever::Job::RakeTask
       command(task, options)
     end
